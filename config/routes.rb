@@ -8,18 +8,19 @@ Rails.application.routes.draw do
 
   match 'users/:id'  => 'users#show_current_user_profile', via: [:get]
 
-  match 'users/:id'    => 'users#update_user', via: [:patch]
-
   match '/users/profile/:username' => 'users#show_user_profile', via: [:get]
 
-  get '/follow' => "users#follow"
+  match 'posts/search' => 'posts#search', via: [:get]
 
+  get '/follow' => "users#follow"
   get '/unfollow' => "users#unfollow"
 
   get '/followers/:id'   =>  "users#followers"
-  
   get '/following/:id'   =>  "users#following"
 
   get '/users/:user_id/is_following' => "users#is_following"
+
+  resources :posts do
+  end
 
 end
