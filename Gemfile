@@ -50,3 +50,6 @@ gem 'devise'
 
 # With this gem we will use Rails as a back-end service and will use Angular
 gem 'tiddle'
+
+# With this gem we will be able to make any model follow another model
+gem "acts_as_follower"
