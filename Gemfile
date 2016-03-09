@@ -47,3 +47,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Add users
 gem 'devise'
+
+# With this gem we will use Rails as a back-end service and will use Angular
+gem 'tiddle'
