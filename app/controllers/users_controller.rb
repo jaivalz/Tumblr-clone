@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, :except => [:show_user_profile, :followers, :following]
+  before_action :authenticate_user!, :except => [:reset_password, :show_user_profile, :followers, :following]
 
   def my_current_user
     render json: current_user
@@ -11,8 +11,8 @@ class UsersController < ApplicationController
   end
 
   def show_current_user_profile
-    @user = User.find(params[:id])
-    render json:@user
+      @user = User.find(params[:id])
+      render json: @user
   end
 
   def show_user_profile
@@ -32,9 +32,9 @@ class UsersController < ApplicationController
     render json: @unfollow
   end
 
-  def
+  def followers
     @users = User.find(params[:id]).followers
-    render json:@users
+    render json: @users
   end
 
   def following
@@ -43,17 +43,24 @@ class UsersController < ApplicationController
   end
 
   def is_following
-    @user = User.find(params[:user_id]).followed_by?(current_user)
-    render json:@user
+   @user = User.find(params[:user_id]).followed_by?(current_user)
+   render json: @user
   end
 
   def update_user
-    @user = User.find(params[:id])
-      if @user.update(user_params)
-        head :no_content
-      else
-        render json: @user.errors, status::unprocessable_entity
-      end
+   @user = User.find(params[:id])
+     if @user.update(user_params)
+       head :no_content
+     else
+       render json: @user.errors, status: :unprocessable_entity
+     end
+  end
+
+
+  def reset_password
+    @user = User.find_by_email(params[:user_email])
+    @user.send_reset_password_instructions
+    render json: @user
   end
 
   private
